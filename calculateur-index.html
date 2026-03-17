@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="qawba">
+    <meta name="description" content="SARFBAIDA BUREAU DE CHANGE CASABLANCA MAROC - Calculateur achat vente devises">
+    <meta name="keywords" content="SARFBAIDA, calculateur change, devise, MAD, Euro, Dollar, bureau de change Casablanca">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../static/assets/images/favicon.png">
+    <title>Calculateur - SARFBAIDA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:       #0b1f3a;
+            --navy-mid:   #132d52;
+            --navy-light: #1e4278;
+            --gold:       #c9a84c;
+            --gold-light: #e8c96e;
+            --gold-pale:  #f5e9c8;
+            --cream:      #faf8f4;
+            --cream-2:    #f3efe8;
+            --white:      #ffffff;
+            --text-dark:  #0b1f3a;
+            --text-mid:   #3d5278;
+            --text-light: #7a90b0;
+            --border:     rgba(11,31,58,0.1);
+            --shadow-sm:  0 2px 12px rgba(11,31,58,0.08);
+            --shadow-lg:  0 20px 60px rgba(11,31,58,0.18);
+            --radius-sm:  10px;
+            --radius-lg:  24px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+        #page-loader { position:fixed; inset:0; z-index:99999; background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; transition:opacity 0.6s ease,visibility 0.6s ease; }
+        #page-loader.loaded { opacity:0; visibility:hidden; pointer-events:none; }
+        .loader-logo-text { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; color:var(--gold); letter-spacing:4px; animation:pulse 1.4s ease-in-out infinite; }
+        .loader-bar { width:160px; height:3px; background:rgba(201,168,76,0.2); border-radius:10px; overflow:hidden; }
+        .loader-bar::after { content:''; display:block; height:100%; width:40%; background:var(--gold); border-radius:10px; animation:loaderSlide 1.2s ease-in-out infinite; }
+        @keyframes loaderSlide { 0%{transform:translateX(-100%)}100%{transform:translateX(350%)} }
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.6} }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)} }
+
+        .site-header { position:sticky; top:0; z-index:1000; background:var(--navy); border-bottom:1px solid rgba(201,168,76,0.2); box-shadow:0 4px 30px rgba(11,31,58,0.35); }
+        .header-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:76px; display:flex; align-items:center; gap:24px; }
+        .navbar-brand { flex-shrink:0; display:flex; align-items:center; text-decoration:none; }
+        .logo-wrap { display:flex; align-items:center; gap:12px; }
+        .logo-icon { width:46px; height:46px; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(201,168,76,0.35); flex-shrink:0; }
+        .logo-icon svg { width:26px; height:26px; }
+        .logo-text-block { display:flex; flex-direction:column; line-height:1; }
+        .logo-name { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:900; color:var(--gold); letter-spacing:2px; }
+        .logo-tagline { font-size:0.62rem; font-weight:500; color:rgba(201,168,76,0.65); letter-spacing:2.5px; text-transform:uppercase; margin-top:2px; }
+        .navbar-nav { display:flex; align-items:center; gap:4px; list-style:none; margin-left:auto; }
+        .navbar-nav .nav-link { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:var(--radius-sm); font-size:0.875rem; font-weight:500; color:rgba(255,255,255,0.75); text-decoration:none; transition:all 0.22s ease; white-space:nowrap; }
+        .navbar-nav .nav-link:hover { background:rgba(255,255,255,0.08); color:#fff; }
+        .navbar-nav .nav-link.active { color:var(--gold); }
+        .navbar-nav .nav-cta { background:linear-gradient(135deg,var(--gold) 0%,#b8903a 100%); color:var(--navy)!important; font-weight:700; padding:9px 18px; border-radius:var(--radius-sm); box-shadow:0 4px 16px rgba(201,168,76,0.35); }
+        .navbar-nav .nav-cta:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(201,168,76,0.45); }
+        .navbar-toggler { display:none; background:none; border:1.5px solid rgba(201,168,76,0.4); border-radius:8px; padding:8px; cursor:pointer; margin-left:auto; color:var(--gold); }
+        .navbar-toggler svg { display:block; width:20px; height:20px; }
+        @media(max-width:900px) {
+            .navbar-toggler { display:flex; align-items:center; justify-content:center; }
+            .navbar-nav { position:absolute; top:76px; left:0; right:0; flex-direction:column; align-items:stretch; background:var(--navy-mid); border-bottom:1px solid rgba(201,168,76,0.15); padding:12px 24px 20px; gap:4px; display:none; box-shadow:0 8px 32px rgba(11,31,58,0.35); }
+            .navbar-nav.open { display:flex; }
+            .navbar-nav .nav-link { padding:12px 16px; }
+            .navbar-nav .nav-cta { margin-top:8px; text-align:center; justify-content:center; }
+        }
+
+        .rates-ticker { background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%); border-top:1px solid rgba(201,168,76,0.15); overflow:hidden; }
+        .ticker-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; height:42px; gap:24px; }
+        .ticker-label { font-size:0.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); white-space:nowrap; flex-shrink:0; }
+        .ticker-scroll { overflow:hidden; flex:1; }
+        .ticker-track { display:flex; gap:32px; animation:ticker 30s linear infinite; white-space:nowrap; }
+        .ticker-item { display:flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:500; color:rgba(255,255,255,0.75); white-space:nowrap; }
+        .ticker-item .t-pair { font-weight:700; color:#fff; }
+        .ticker-item .t-buy  { color:#93c5fd; }
+        .ticker-item .t-sell { color:#86efac; }
+        @keyframes ticker { 0%{transform:translateX(0)}100%{transform:translateX(-50%)} }
+
+        .breadcrumb-bar { background:var(--cream-2); border-bottom:1px solid var(--border); padding:12px 0; }
+        .breadcrumb-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+        .breadcrumb { display:flex; align-items:center; gap:8px; list-style:none; font-size:0.82rem; color:var(--text-light); }
+        .breadcrumb a { color:var(--navy-light); text-decoration:none; font-weight:500; }
+        .breadcrumb a:hover { color:var(--gold); }
+        .breadcrumb .sep { font-size:0.75rem; }
+        .breadcrumb .current { color:var(--text-dark); font-weight:600; }
+
+        .main-content { max-width:1200px; margin:0 auto; padding:48px 24px 64px; }
+        .content-grid { display:grid; grid-template-columns:1fr 400px; gap:40px; align-items:start; }
+        @media(max-width:960px) { .content-grid { grid-template-columns:1fr; gap:32px; } }
+
+        /* CALC CARD */
+        .calc-card { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); overflow:hidden; border:1px solid rgba(201,168,76,0.12); animation:fadeUp 0.65s ease both; }
+        .calc-header { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%); padding:32px 36px; position:relative; overflow:hidden; }
+        .calc-header::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(201,168,76,0.15) 0%,transparent 70%); pointer-events:none; }
+        .calc-header-label { font-size:0.72rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+        .calc-header h1 { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:700; color:#fff; line-height:1.2; }
+        .calc-header p { color:rgba(255,255,255,0.6); font-size:0.88rem; margin-top:6px; }
+        .calc-body { padding:36px; }
+
+        /* TYPE TOGGLE */
+        .type-toggle { display:grid; grid-template-columns:1fr 1fr; background:var(--cream-2); border-radius:var(--radius-sm); padding:4px; gap:4px; margin-bottom:32px; }
+        .type-toggle input[type="radio"] { display:none; }
+        .type-toggle label { display:flex; flex-direction:column; align-items:center; gap:4px; padding:14px 12px; border-radius:8px; cursor:pointer; text-align:center; transition:all 0.25s ease; font-weight:500; font-size:0.88rem; color:var(--text-mid); }
+        .type-toggle label .t-icon { font-size:1.4rem; line-height:1; }
+        .type-toggle label .t-sub { font-size:0.72rem; color:var(--text-light); font-weight:400; }
+        .type-toggle input[type="radio"]:checked + label { box-shadow:0 4px 16px rgba(11,31,58,0.2); }
+        #inlineRadio1:checked + label { background:linear-gradient(135deg,#e74c3c,#c0392b); color:#fff; }
+        #inlineRadio1:checked + label .t-sub { color:rgba(255,255,255,0.65); }
+        #inlineRadio2:checked + label { background:linear-gradient(135deg,#27ae60,#1e8449); color:#fff; }
+        #inlineRadio2:checked + label .t-sub { color:rgba(255,255,255,0.65); }
+
+        .field-group { margin-bottom:24px; }
+        .field-label { display:block; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; color:var(--text-mid); margin-bottom:8px; }
+        .field-label span { color:var(--gold); }
+        .form-select, .form-input { width:100%; padding:14px 18px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; color:var(--text-dark); background:var(--cream); outline:none; transition:all 0.22s ease; }
+        .form-select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233d5278' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:42px; appearance:none; }
+        .form-select:focus, .form-input:focus { border-color:var(--gold); background:var(--white); box-shadow:0 0 0 3px rgba(201,168,76,0.12); }
+        .form-input::placeholder { color:var(--text-light); }
+
+        /* RESULT ROW */
+        .result-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; }
+        @media(max-width:576px) { .result-row { grid-template-columns:1fr; } }
+        .result-box { background:var(--cream-2); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:16px 18px; transition:all 0.3s ease; }
+        .result-box.highlight { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%); border-color:transparent; box-shadow:0 8px 28px rgba(11,31,58,0.2); }
+        .result-box-label { font-size:0.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+        .result-box.highlight .result-box-label { color:rgba(255,255,255,0.55); }
+        .result-value { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:var(--text-dark); word-break:break-all; transition:opacity 0.3s ease; }
+        .result-box.highlight .result-value { color:var(--gold); }
+        .result-unit { font-size:0.75rem; font-weight:500; color:var(--text-light); margin-top:2px; }
+        .result-box.highlight .result-unit { color:rgba(255,255,255,0.4); }
+
+        /* SPREAD INFO */
+        .spread-info { background:var(--cream-2); border-radius:var(--radius-sm); padding:12px 16px; margin-bottom:20px; font-size:0.8rem; color:var(--text-mid); display:none; border-left:3px solid var(--gold); }
+        .spread-info.show { display:block; }
+        .spread-info strong { color:var(--text-dark); }
+
+        #error { background:#fff5f5; border:1px solid #fed7d7; color:#c53030; border-radius:8px; padding:10px 14px; font-size:0.85rem; margin-bottom:16px; display:none; }
+        #error.show { display:block; }
+
+        .btn-submit { width:100%; padding:16px; background:linear-gradient(135deg,var(--gold) 0%,#b8903a 100%); color:var(--navy); border:none; border-radius:var(--radius-sm); font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.5px; cursor:pointer; box-shadow:0 6px 20px rgba(201,168,76,0.35); transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:8px; }
+        .btn-submit:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(201,168,76,0.5); }
+        .note-text { text-align:center; font-size:0.78rem; color:var(--text-light); margin-top:14px; }
+        .note-text span { color:var(--gold); }
+
+        /* SIDEBAR */
+        .sidebar { display:flex; flex-direction:column; gap:20px; }
+        .info-card { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%); border-radius:var(--radius-lg); padding:32px; color:#fff; position:relative; overflow:hidden; animation:fadeUp 0.65s 0.1s ease both; }
+        .info-card::before { content:''; position:absolute; bottom:-30px; right:-30px; width:140px; height:140px; background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%); }
+        .info-card-badge { display:inline-block; background:rgba(201,168,76,0.15); color:var(--gold); border:1px solid rgba(201,168,76,0.3); border-radius:50px; padding:4px 12px; font-size:0.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px; }
+        .info-card h2 { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:700; line-height:1.3; margin-bottom:10px; }
+        .info-card h4 { font-size:0.9rem; font-weight:500; color:rgba(255,255,255,0.7); line-height:1.5; margin-bottom:20px; }
+        .info-card p { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:10px; }
+        .btn-agencies { display:inline-flex; align-items:center; gap:8px; margin-top:4px; padding:12px 22px; background:var(--gold); color:var(--navy); border-radius:var(--radius-sm); font-weight:700; font-size:0.88rem; text-decoration:none; transition:all 0.22s ease; box-shadow:0 4px 16px rgba(201,168,76,0.35); }
+        .btn-agencies:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.5); }
+
+        /* MINI RATES TABLE in sidebar */
+        .mini-rates-card { background:var(--white); border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden; box-shadow:0 2px 12px rgba(11,31,58,0.08); animation:fadeUp 0.65s 0.2s ease both; }
+        .mini-rates-header { background:linear-gradient(135deg,var(--gold-pale) 0%,#ede4cc 100%); padding:16px 20px; border-bottom:1px solid rgba(201,168,76,0.2); display:flex; align-items:center; justify-content:space-between; }
+        .mini-rates-header h3 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--navy); }
+        .mini-rates-header span { font-size:0.7rem; color:var(--text-light); }
+        .mini-rate-row { display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:8px; padding:11px 20px; border-bottom:1px solid var(--border); font-size:0.83rem; cursor:pointer; transition:background 0.18s ease; }
+        .mini-rate-row:last-child { border-bottom:none; }
+        .mini-rate-row:hover { background:var(--cream); }
+        .mini-rate-row.active-row { background:linear-gradient(135deg,rgba(201,168,76,0.08) 0%,rgba(201,168,76,0.04) 100%); }
+        .mrr-pair { display:flex; align-items:center; gap:8px; }
+        .mrr-flag { font-size:1.1rem; }
+        .mrr-code { font-weight:700; color:var(--text-dark); font-size:0.82rem; }
+        .mrr-buy  { color:#1976d2; font-weight:700; font-size:0.82rem; text-align:right; }
+        .mrr-sell { color:#27ae60; font-weight:700; font-size:0.82rem; text-align:right; }
+        .mini-rates-legend { display:flex; gap:16px; padding:10px 20px; background:var(--cream-2); border-top:1px solid var(--border); font-size:0.7rem; font-weight:600; }
+        .mini-rates-legend .l-buy  { color:#1976d2; }
+        .mini-rates-legend .l-sell { color:#27ae60; }
+
+        .hours-card { background:var(--white); border-radius:var(--radius-lg); border:1px solid var(--border); padding:24px; box-shadow:0 2px 12px rgba(11,31,58,0.08); animation:fadeUp 0.65s 0.3s ease both; }
+        .hours-title { font-size:0.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+        .hours-row { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid var(--border); font-size:0.83rem; }
+        .hours-row:last-child { border-bottom:none; }
+        .hours-row .day { font-weight:500; color:var(--text-mid); }
+        .hours-row .time { background:var(--cream-2); border-radius:6px; padding:3px 9px; font-size:0.75rem; font-weight:600; color:var(--navy); }
+
+        /* FOOTER */
+        .site-footer { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 50%,var(--navy-light) 100%); border-top:1px solid rgba(201,168,76,0.15); padding:56px 0 0; position:relative; overflow:hidden; }
+        .site-footer::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:600px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+        .footer-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.08); }
+        @media(max-width:960px) { .footer-grid { grid-template-columns:1fr 1fr; gap:32px; } }
+        @media(max-width:576px) { .footer-grid { grid-template-columns:1fr; gap:28px; } }
+        .footer-brand .footer-logo-block { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+        .footer-logo-icon { width:52px; height:52px; flex-shrink:0; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(201,168,76,0.35); }
+        .footer-logo-icon svg { width:30px; height:30px; }
+        .footer-logo-name { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:var(--gold); letter-spacing:2px; line-height:1; }
+        .footer-logo-sub { font-size:0.65rem; font-weight:600; color:rgba(201,168,76,0.5); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+        .footer-brand p { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.75; max-width:280px; }
+        .footer-social { display:flex; gap:10px; margin-top:20px; }
+        .social-btn { width:38px; height:38px; background:rgba(255,255,255,0.07); border-radius:10px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.6); text-decoration:none; transition:all 0.22s ease; }
+        .social-btn:hover { background:var(--gold); color:var(--navy); transform:translateY(-2px); }
+        .footer-col h5 { font-size:0.72rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid rgba(201,168,76,0.2); }
+        .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+        .footer-col ul li a { font-size:0.85rem; color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s; display:flex; align-items:center; gap:6px; }
+        .footer-col ul li a::before { content:'›'; color:var(--gold); font-size:1rem; }
+        .footer-col ul li a:hover { color:#fff; }
+        .footer-col address { font-style:normal; font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.9; }
+        .footer-col address strong { color:rgba(255,255,255,0.8); font-weight:600; }
+        .footer-col .footer-phone { display:flex; align-items:center; gap:8px; margin-top:8px; }
+        .footer-col .footer-phone a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:0.85rem; font-weight:500; transition:color 0.2s; }
+        .footer-col .footer-phone a:hover { color:var(--gold); }
+        .footer-bottom { display:flex; align-items:center; justify-content:space-between; padding:18px 0; flex-wrap:wrap; gap:12px; }
+        .footer-bottom p { font-size:0.78rem; color:rgba(255,255,255,0.35); }
+        .footer-bottom-links { display:flex; gap:20px; flex-wrap:wrap; }
+        .footer-bottom-links a { font-size:0.78rem; color:rgba(255,255,255,0.35); text-decoration:none; transition:color 0.2s; }
+        .footer-bottom-links a:hover { color:var(--gold); }
+
+        .whatsapp-float { position:fixed; bottom:28px; right:24px; z-index:9999; }
+        .whatsapp-float a { display:flex; align-items:center; justify-content:center; width:58px; height:58px; background:linear-gradient(135deg,#25D366 0%,#128C7E 100%); border-radius:50%; color:#fff; box-shadow:0 6px 24px rgba(37,211,102,0.45); transition:all 0.3s ease; text-decoration:none; }
+        .whatsapp-float a:hover { transform:scale(1.1); }
+        .whatsapp-float svg { width:30px; height:30px; }
+
+        @media(max-width:576px) { .main-content { padding:24px 16px 48px; } .calc-header { padding:24px; } .calc-body { padding:24px; } }
+    </style>
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo-text">SARFBAIDA</div><div class="loader-bar"></div></div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="header-inner">
+        <a class="navbar-brand" href="../index.html">
+            <div class="logo-wrap">
+                <div class="logo-icon"><svg viewBox="0 0 26 26" fill="none"><path d="M13 2L4 7v12l9 5 9-5V7L13 2z" fill="#0b1f3a"/><text x="13" y="17" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#c9a84c">$</text></svg></div>
+                <div class="logo-text-block"><span class="logo-name">SARFBAIDA</span><span class="logo-tagline">Bureau de Change</span></div>
+            </div>
+        </a>
+        <button class="navbar-toggler" id="menuToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <ul class="navbar-nav" id="navbarNav">
+            <li><a class="nav-link" href="index.html">🏠 Acceuil</a></li>
+            <li><a class="nav-link" href="dotation-index.html">📋 Dotation</a></li>
+            <li><a class="nav-link" href="agence-index.html">📍 Nos Agences</a></li>
+            <li><a class="nav-link" href="contact-index.html">✉️ Contact</a></li>
+            <li><a class="nav-link nav-cta" href="calculateur-index.html">🧮 Calculateur</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- TICKER — real rates from app.js (buy/sell) -->
+<div class="rates-ticker">
+    <div class="ticker-inner">
+        <span class="ticker-label">📈 Cours du jour</span>
+        <div class="ticker-scroll"><div class="ticker-track">
+            <span class="ticker-item"><span class="t-pair">EUR/MAD</span><span class="t-buy">A:10.58</span><span class="t-sell">V:10.85</span></span>
+            <span class="ticker-item"><span class="t-pair">USD/MAD</span><span class="t-buy">A:9.20</span><span class="t-sell">V:9.60</span></span>
+            <span class="ticker-item"><span class="t-pair">GBP/MAD</span><span class="t-buy">A:12.20</span><span class="t-sell">V:12.85</span></span>
+            <span class="ticker-item"><span class="t-pair">CAD/MAD</span><span class="t-buy">A:6.70</span><span class="t-sell">V:7.00</span></span>
+            <span class="ticker-item"><span class="t-pair">CHF/MAD</span><span class="t-buy">A:11.30</span><span class="t-sell">V:12.00</span></span>
+            <span class="ticker-item"><span class="t-pair">SAR/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
+            <span class="ticker-item"><span class="t-pair">AED/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
+            <span class="ticker-item"><span class="t-pair">KWD/MAD</span><span class="t-buy">A:26.00</span><span class="t-sell">V:31.60</span></span>
+            <span class="ticker-item"><span class="t-pair">EUR/MAD</span><span class="t-buy">A:10.58</span><span class="t-sell">V:10.85</span></span>
+            <span class="ticker-item"><span class="t-pair">USD/MAD</span><span class="t-buy">A:9.20</span><span class="t-sell">V:9.60</span></span>
+            <span class="ticker-item"><span class="t-pair">GBP/MAD</span><span class="t-buy">A:12.20</span><span class="t-sell">V:12.85</span></span>
+            <span class="ticker-item"><span class="t-pair">CAD/MAD</span><span class="t-buy">A:6.70</span><span class="t-sell">V:7.00</span></span>
+            <span class="ticker-item"><span class="t-pair">CHF/MAD</span><span class="t-buy">A:11.30</span><span class="t-sell">V:12.00</span></span>
+            <span class="ticker-item"><span class="t-pair">SAR/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
+            <span class="ticker-item"><span class="t-pair">AED/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
+            <span class="ticker-item"><span class="t-pair">KWD/MAD</span><span class="t-buy">A:26.00</span><span class="t-sell">V:31.60</span></span>
+        </div></div>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+    <div class="breadcrumb-inner">
+        <ol class="breadcrumb"><li><a href="../index.html">Acceuil</a></li><li class="sep">›</li><li class="current">Calculateur Achat / Vente</li></ol>
+    </div>
+</div>
+
+<!-- MAIN -->
+<main class="main-content">
+    <div class="content-grid">
+
+        <!-- CALCULATOR -->
+        <div class="calc-card">
+            <div class="calc-header">
+                <div class="calc-header-label">🧮 Simulation instantanée</div>
+                <h1>Calculateur de Change</h1>
+                <p>Obtenez le montant exact en dirhams marocains (MAD)</p>
+            </div>
+            <div class="calc-body">
+                <form id="calc" novalidate>
+
+                    <div class="type-toggle">
+                        <input type="radio" name="type" id="inlineRadio1" value="achat">
+                        <label for="inlineRadio1">
+                            <span class="t-icon">💳</span>Achat
+                            <span class="t-sub">Vous vendez la devise</span>
+                        </label>
+                        <input type="radio" name="type" id="inlineRadio2" value="vente" checked>
+                        <label for="inlineRadio2">
+                            <span class="t-icon">💰</span>Vente
+                            <span class="t-sub">Vous achetez la devise</span>
+                        </label>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="devise">Devise <span>*</span></label>
+                        <select class="form-select" name="devise" id="devise" required>
+                            <option value="">— Choisir une devise —</option>
+                            <option value="1">🇪🇺  Euro (EUR)</option>
+                            <option value="2">🇺🇸  Dollar américain (USD)</option>
+                            <option value="3">🇨🇦  Dollar canadien (CAD)</option>
+                            <option value="4">🇬🇧  Livre sterling (GBP)</option>
+                            <option value="6">🇨🇭  Franc suisse (CHF)</option>
+                            <option value="7">🇸🇦  Riyal saoudien (SAR)</option>
+                            <option value="8">🇦🇪  Dirham des Émirats (AED)</option>
+                            <option value="9">🇧🇭  Dinar Bahreïni (BHD)</option>
+                            <option value="10">🇰🇼  Dinar koweïtien (KWD)</option>
+                            <option value="11">🇶🇦  Riyal qatari (QAR)</option>
+                            <option value="12">🇴🇲  Rial omani (OMR)</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="quantite">Montant <span>*</span></label>
+                        <input type="number" min="0" step="0.01" name="quantite" class="form-input" placeholder="0.00" id="quantite" required>
+                    </div>
+
+                    <div class="result-row">
+                        <div class="result-box">
+                            <div class="result-box-label">Taux appliqué</div>
+                            <div class="result-value" id="prix_devise">—</div>
+                            <div class="result-unit">MAD / unité</div>
+                        </div>
+                        <div class="result-box highlight">
+                            <div class="result-box-label">Total à payer</div>
+                            <div class="result-value" id="amount">—</div>
+                            <div class="result-unit">Dirhams marocains</div>
+                        </div>
+                    </div>
+
+                    <div class="spread-info" id="spreadInfo"></div>
+                    <div id="error"></div>
+
+                    <button type="submit" class="btn-submit">⚡ Simuler maintenant</button>
+                    <p class="note-text">Les champs marqués <span>*</span> sont obligatoires</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="info-card">
+                <div class="info-card-badge">✦ Meilleur prix garanti</div>
+                <h2>Toujours à votre service</h2>
+                <h4>Retirez et payez dans nos bureaux de change au meilleur taux du marché.</h4>
+                <p>La dotation pour voyages personnels est de 100 000 DH de base, majorée de 30% de l'IR payé, sans excéder 300 000 DH par an.</p>
+                <a href="agence-index.html" class="btn-agencies">📍 Nos Agences</a>
+            </div>
+
+            <!-- Mini rates table (real data from app.js) -->
+            <div class="mini-rates-card">
+                <div class="mini-rates-header">
+                    <h3>💱 Cours du jour</h3>
+                    <span>MAD indicatifs</span>
+                </div>
+                <div class="mini-rate-row" data-id="1"><div class="mrr-pair"><span class="mrr-flag">🇪🇺</span><span class="mrr-code">EUR</span></div><span class="mrr-buy">10.58</span><span class="mrr-sell">10.85</span></div>
+                <div class="mini-rate-row" data-id="2"><div class="mrr-pair"><span class="mrr-flag">🇺🇸</span><span class="mrr-code">USD</span></div><span class="mrr-buy">9.20</span><span class="mrr-sell">9.60</span></div>
+                <div class="mini-rate-row" data-id="4"><div class="mrr-pair"><span class="mrr-flag">🇬🇧</span><span class="mrr-code">GBP</span></div><span class="mrr-buy">12.20</span><span class="mrr-sell">12.85</span></div>
+                <div class="mini-rate-row" data-id="3"><div class="mrr-pair"><span class="mrr-flag">🇨🇦</span><span class="mrr-code">CAD</span></div><span class="mrr-buy">6.70</span><span class="mrr-sell">7.00</span></div>
+                <div class="mini-rate-row" data-id="6"><div class="mrr-pair"><span class="mrr-flag">🇨🇭</span><span class="mrr-code">CHF</span></div><span class="mrr-buy">11.30</span><span class="mrr-sell">12.00</span></div>
+                <div class="mini-rate-row" data-id="7"><div class="mrr-pair"><span class="mrr-flag">🇸🇦</span><span class="mrr-code">SAR</span></div><span class="mrr-buy">2.40</span><span class="mrr-sell">2.65</span></div>
+                <div class="mini-rate-row" data-id="8"><div class="mrr-pair"><span class="mrr-flag">🇦🇪</span><span class="mrr-code">AED</span></div><span class="mrr-buy">2.40</span><span class="mrr-sell">2.65</span></div>
+                <div class="mini-rate-row" data-id="10"><div class="mrr-pair"><span class="mrr-flag">🇰🇼</span><span class="mrr-code">KWD</span></div><span class="mrr-buy">26.00</span><span class="mrr-sell">31.60</span></div>
+                <div class="mini-rates-legend">
+                    <span class="l-buy">■ Achat (vous vendez)</span>
+                    <span class="l-sell">■ Vente (vous achetez)</span>
+                </div>
+            </div>
+
+            <div class="hours-card">
+                <div class="hours-title">🕐 Horaires d'ouverture</div>
+                <div class="hours-row"><span class="day">Lundi – Vendredi</span><span class="time">9h00 – 19h00</span></div>
+                <div class="hours-row"><span class="day">Samedi</span><span class="time">9h00 – 18h00</span></div>
+                <div class="hours-row" style="margin-top:8px;padding-top:8px;border-top:2px solid var(--gold-pale)"><span class="day" style="color:var(--gold);font-weight:600">🌙 Ramadan Lun–Ven</span><span class="time">9h30–17h00</span></div>
+                <div class="hours-row"><span class="day" style="color:var(--gold);font-weight:600">🌙 Ramadan Sam</span><span class="time">9h30–16h00</span></div>
+            </div>
+
+        </aside>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo-block">
+                    <div class="footer-logo-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 2L5 8v14l10 6 10-6V8L15 2z" fill="#0b1f3a"/><text x="15" y="20" text-anchor="middle" font-family="serif" font-size="12" font-weight="900" fill="#c9a84c">$</text></svg></div>
+                    <div><div class="footer-logo-name">SARFBAIDA</div><div class="footer-logo-sub">Bureau de Change · Casablanca</div></div>
+                </div>
+                <p>Agence spécialisée dans les services de change de devises. Meilleur prix garanti.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/212697044281" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.529 5.842L.057 23.884l6.196-1.447A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.001-1.366l-.359-.213-3.722.869.934-3.613-.233-.37A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg></a>
+                    <a href="tel:+212522768463" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Acceuil</a></li><li><a href="dotation-index.html">Consultez la dotation</a></li><li><a href="agence-index.html">Nos Agences</a></li><li><a href="contact-index.html">Contact</a></li><li><a href="calculateur-index.html">Calculateur</a></li></ul></div>
+            <div class="footer-col"><h5>Horaires</h5><ul><li><a>Lun – Ven : 9h – 19h</a></li><li><a>Samedi : 9h – 18h</a></li><li><a>🌙 Ramadan Lun–Ven : 9h30–17h</a></li><li><a>🌙 Ramadan Sam : 9h30–16h</a></li></ul></div>
+            <div class="footer-col"><h5>Contact</h5><address><strong>Sarfbaida</strong></address><div class="footer-phone" style="margin-top:10px"><span>📞</span><a href="tel:+212522768463">+212 5 22 76 84 63</a></div><div class="footer-phone"><span>📲</span><a href="tel:+212697044281">+212 6 97 04 42 81</a></div></div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="copyright-year">2025</span> SARFBAIDA — Tous droits réservés.</p>
+            <div class="footer-bottom-links"><a href="index.html">Acceuil</a><a href="dotation-index.html">Dotation</a><a href="agence-index.html">Agences</a><a href="contact-index.html">Contact</a></div>
+        </div>
+    </div>
+</footer>
+
+<div class="whatsapp-float"><a href="https://wa.me/212697044281" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 0C7.164 0 0 7.164 0 16c0 2.82.737 5.492 2.033 7.793L.667 31.333l7.792-2.033A15.93 15.93 0 0016 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333a13.27 13.27 0 01-6.745-1.837l-.483-.287-5.008 1.307 1.337-4.88-.316-.5A13.235 13.235 0 012.667 16c0-7.364 5.969-13.333 13.333-13.333S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.317-9.963c-.393-.197-2.313-1.141-2.671-1.27-.358-.128-.619-.197-.879.197-.261.393-1.014 1.27-1.243 1.532-.229.261-.458.294-.851.098-.393-.197-1.66-.612-3.162-1.949-1.169-1.041-1.956-2.327-2.185-2.72-.229-.393-.025-.605.172-.798.177-.177.393-.458.589-.688.196-.229.261-.393.393-.655.131-.262.065-.491-.033-.688-.098-.196-.879-2.117-1.203-2.899-.317-.76-.639-.657-.879-.67l-.752-.015a1.445 1.445 0 00-1.042.491c-.358.393-1.365 1.333-1.365 3.251s1.396 3.77 1.589 4.028c.196.262 2.74 4.181 6.638 5.861.927.4 1.651.64 2.214.818.93.295 1.776.253 2.446.154.746-.112 2.313-.945 2.639-1.859.326-.913.326-1.696.229-1.859-.098-.163-.358-.262-.751-.459z"/></svg></a></div>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('page-loader').classList.add('loaded');},800);});
+document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navbarNav').classList.toggle('open');});
+document.getElementById('copyright-year').textContent=new Date().getFullYear();
+
+/* ============================================================
+   RATES — exact data from app.js
+   { buy: achat (vous vendez), sell: vente (vous achetez) }
+============================================================ */
+var tauxCalc = {
+    1:  { buy: 10.58, sell: 10.85, code: 'EUR', name: 'Euro' },
+    2:  { buy: 9.20,  sell: 9.60,  code: 'USD', name: 'Dollar américain' },
+    3:  { buy: 6.70,  sell: 7.00,  code: 'CAD', name: 'Dollar canadien' },
+    4:  { buy: 12.20, sell: 12.85, code: 'GBP', name: 'Livre sterling' },
+    6:  { buy: 11.30, sell: 12.00, code: 'CHF', name: 'Franc suisse' },
+    7:  { buy: 2.40,  sell: 2.65,  code: 'SAR', name: 'Riyal saoudien' },
+    8:  { buy: 2.40,  sell: 2.65,  code: 'AED', name: 'Dirham EAU' },
+    9:  { buy: 21.00, sell: 25.65, code: 'BHD', name: 'Dinar Bahreïni' },
+    10: { buy: 26.00, sell: 31.60, code: 'KWD', name: 'Dinar koweïtien' },
+    11: { buy: 2.35,  sell: 2.65,  code: 'QAR', name: 'Riyal qatari' },
+    12: { buy: 21.00, sell: 25.18, code: 'OMR', name: 'Rial omani' }
+};
+
+var deviseEl   = document.getElementById('devise');
+var quantiteEl = document.getElementById('quantite');
+var prixEl     = document.getElementById('prix_devise');
+var amountEl   = document.getElementById('amount');
+var errorEl    = document.getElementById('error');
+var spreadEl   = document.getElementById('spreadInfo');
+
+function showError(msg){ errorEl.textContent=msg; errorEl.classList.add('show'); }
+function clearError(){ errorEl.textContent=''; errorEl.classList.remove('show'); }
+
+function formatMAD(n){ return n.toLocaleString('fr-MA',{minimumFractionDigits:2,maximumFractionDigits:2})+' MAD'; }
+
+function highlightMiniRow(id){
+    document.querySelectorAll('.mini-rate-row').forEach(function(r){ r.classList.remove('active-row'); });
+    var row=document.querySelector('.mini-rate-row[data-id="'+id+'"]');
+    if(row) row.classList.add('active-row');
+}
+
+function calculate(){
+    clearError();
+    var deviseId=parseInt(deviseEl.value,10);
+    var quantite=parseFloat(quantiteEl.value);
+    var type=document.querySelector('input[name="type"]:checked').value;
+    if(!deviseId){ showError('⚠️ Veuillez sélectionner une devise.'); return; }
+    if(isNaN(quantite)||quantite<=0){ showError('⚠️ Veuillez entrer un montant valide.'); return; }
+    var taux=tauxCalc[deviseId];
+    if(!taux){ showError('⚠️ Devise non reconnue.'); return; }
+
+    /* achat = buy (vous vendez la devise), vente = sell (vous achetez la devise) */
+    var prix=(type==='achat') ? taux.buy : taux.sell;
+    var total=quantite*prix;
+
+    prixEl.style.opacity='0'; amountEl.style.opacity='0';
+    setTimeout(function(){
+        prixEl.textContent=prix.toFixed(2)+' MAD';
+        amountEl.textContent=formatMAD(total);
+        prixEl.style.transition='opacity 0.3s ease'; amountEl.style.transition='opacity 0.3s ease';
+        prixEl.style.opacity='1'; amountEl.style.opacity='1';
+    },150);
+
+    /* Spread info */
+    var spread=(taux.sell-taux.buy).toFixed(2);
+    spreadEl.innerHTML='<strong>'+taux.code+'</strong> — Achat: '+taux.buy+' | Vente: '+taux.sell+' | Spread: '+spread+' MAD';
+    spreadEl.classList.add('show');
+
+    highlightMiniRow(deviseId);
+}
+
+document.getElementById('calc').addEventListener('submit',function(e){ e.preventDefault(); calculate(); });
+deviseEl.addEventListener('change',function(){ if(quantiteEl.value) calculate(); });
+quantiteEl.addEventListener('input',function(){ if(this.value&&deviseEl.value) calculate(); });
+document.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change',function(){ if(quantiteEl.value&&deviseEl.value) calculate(); }); });
+
+/* Click on mini rate row → select that devise */
+document.querySelectorAll('.mini-rate-row').forEach(function(row){
+    row.addEventListener('click',function(){
+        var id=this.getAttribute('data-id');
+        deviseEl.value=id;
+        highlightMiniRow(id);
+        if(quantiteEl.value) calculate();
+        else quantiteEl.focus();
+    });
+});
+</script>
+</body>
+</html>
