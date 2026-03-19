@@ -81,6 +81,7 @@
             height: 76px; display: flex; align-items: center; gap: 24px;
         }
         .navbar-brand { flex-shrink:0; display:flex; align-items:center; text-decoration:none; }
+        .navbar-logo-img { height:62px; width:auto; max-width:280px; object-fit:contain; display:block; }
         .logo-wrap { display:flex; align-items:center; gap:12px; }
         .logo-icon {
             width:46px; height:46px;
@@ -276,11 +277,8 @@
         .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.08); }
         @media(max-width:960px) { .footer-grid { grid-template-columns:1fr 1fr; gap:32px; } }
         @media(max-width:576px) { .footer-grid { grid-template-columns:1fr; gap:28px; } }
-        .footer-brand .footer-logo-block { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
-        .footer-logo-icon { width:52px; height:52px; flex-shrink:0; background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); border-radius:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(201,168,76,0.35); }
-        .footer-logo-icon svg { width:30px; height:30px; }
-        .footer-logo-name { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:var(--gold); letter-spacing:2px; line-height:1; }
-        .footer-logo-sub { font-size:0.65rem; font-weight:600; color:rgba(201,168,76,0.5); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+        .footer-brand .footer-logo-block { display:flex; align-items:center; margin-bottom:20px; }
+        .footer-logo-img { height:48px; width:auto; max-width:220px; object-fit:contain; display:block; }
         .footer-brand p { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.75; max-width:280px; }
         .footer-social { display:flex; gap:10px; margin-top:20px; }
         .social-btn { width:38px; height:38px; background:rgba(255,255,255,0.07); border-radius:10px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.6); text-decoration:none; transition:all 0.22s ease; font-size:1.1rem; }
@@ -320,16 +318,8 @@
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
-        <a class="navbar-brand" href="../index.html">
-            <div class="logo-wrap">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 26 26" fill="none"><path d="M13 2L4 7v12l9 5 9-5V7L13 2z" fill="#0b1f3a"/><text x="13" y="17" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#c9a84c">$</text></svg>
-                </div>
-                <div class="logo-text-block">
-                    <span class="logo-name">SARFBAIDA</span>
-                    <span class="logo-tagline">Bureau de Change</span>
-                </div>
-            </div>
+        <a class="navbar-brand" href="index.html">
+            <img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="navbar-logo-img">
         </a>
         <button class="navbar-toggler" id="menuToggle" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -487,13 +477,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo-block">
-                    <div class="footer-logo-icon">
-                        <svg viewBox="0 0 30 30" fill="none"><path d="M15 2L5 8v14l10 6 10-6V8L15 2z" fill="#0b1f3a"/><text x="15" y="20" text-anchor="middle" font-family="serif" font-size="12" font-weight="900" fill="#c9a84c">$</text></svg>
-                    </div>
-                    <div>
-                        <div class="footer-logo-name">SARFBAIDA</div>
-                        <div class="footer-logo-sub">Bureau de Change · Casablanca</div>
-                    </div>
+                    <a href="index.html"><img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="footer-logo-img"></a>
                 </div>
                 <p>Agence spécialisée dans les services de change de devises. Meilleur prix garanti sur toutes les devises.</p>
                 <div class="footer-social">

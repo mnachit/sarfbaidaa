@@ -45,6 +45,7 @@
         .site-header { position:sticky; top:0; z-index:1000; background:var(--navy); border-bottom:1px solid rgba(201,168,76,0.2); box-shadow:0 4px 30px rgba(11,31,58,0.35); }
         .header-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:76px; display:flex; align-items:center; gap:24px; }
         .navbar-brand { flex-shrink:0; display:flex; align-items:center; text-decoration:none; }
+        .navbar-logo-img { height:62px; width:auto; max-width:280px; object-fit:contain; display:block; }
         .logo-wrap { display:flex; align-items:center; gap:12px; }
         .logo-icon { width:46px; height:46px; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(201,168,76,0.35); flex-shrink:0; }
         .logo-icon svg { width:26px; height:26px; }
@@ -187,11 +188,8 @@
         .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.08); }
         @media(max-width:960px) { .footer-grid { grid-template-columns:1fr 1fr; gap:32px; } }
         @media(max-width:576px) { .footer-grid { grid-template-columns:1fr; gap:28px; } }
-        .footer-brand .footer-logo-block { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
-        .footer-logo-icon { width:52px; height:52px; flex-shrink:0; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(201,168,76,0.35); }
-        .footer-logo-icon svg { width:30px; height:30px; }
-        .footer-logo-name { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:var(--gold); letter-spacing:2px; line-height:1; }
-        .footer-logo-sub { font-size:0.65rem; font-weight:600; color:rgba(201,168,76,0.5); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+        .footer-brand .footer-logo-block { display:flex; align-items:center; margin-bottom:20px; }
+        .footer-logo-img { height:48px; width:auto; max-width:220px; object-fit:contain; display:block; }
         .footer-brand p { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.75; max-width:280px; }
         .footer-social { display:flex; gap:10px; margin-top:20px; }
         .social-btn { width:38px; height:38px; background:rgba(255,255,255,0.07); border-radius:10px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.6); text-decoration:none; transition:all 0.22s ease; }
@@ -227,11 +225,8 @@
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
-        <a class="navbar-brand" href="../index.html">
-            <div class="logo-wrap">
-                <div class="logo-icon"><svg viewBox="0 0 26 26" fill="none"><path d="M13 2L4 7v12l9 5 9-5V7L13 2z" fill="#0b1f3a"/><text x="13" y="17" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#c9a84c">$</text></svg></div>
-                <div class="logo-text-block"><span class="logo-name">SARFBAIDA</span><span class="logo-tagline">Bureau de Change</span></div>
-            </div>
+        <a class="navbar-brand" href="index.html">
+            <img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="navbar-logo-img">
         </a>
         <button class="navbar-toggler" id="menuToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <ul class="navbar-nav" id="navbarNav">
@@ -248,24 +243,7 @@
 <div class="rates-ticker">
     <div class="ticker-inner">
         <span class="ticker-label">📈 Cours du jour</span>
-        <div class="ticker-scroll"><div class="ticker-track">
-            <span class="ticker-item"><span class="t-pair">EUR/MAD</span><span class="t-buy">A:10.58</span><span class="t-sell">V:10.85</span></span>
-            <span class="ticker-item"><span class="t-pair">USD/MAD</span><span class="t-buy">A:9.20</span><span class="t-sell">V:9.60</span></span>
-            <span class="ticker-item"><span class="t-pair">GBP/MAD</span><span class="t-buy">A:12.20</span><span class="t-sell">V:12.85</span></span>
-            <span class="ticker-item"><span class="t-pair">CAD/MAD</span><span class="t-buy">A:6.70</span><span class="t-sell">V:7.00</span></span>
-            <span class="ticker-item"><span class="t-pair">CHF/MAD</span><span class="t-buy">A:11.30</span><span class="t-sell">V:12.00</span></span>
-            <span class="ticker-item"><span class="t-pair">SAR/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">AED/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">KWD/MAD</span><span class="t-buy">A:26.00</span><span class="t-sell">V:31.60</span></span>
-            <span class="ticker-item"><span class="t-pair">EUR/MAD</span><span class="t-buy">A:10.58</span><span class="t-sell">V:10.85</span></span>
-            <span class="ticker-item"><span class="t-pair">USD/MAD</span><span class="t-buy">A:9.20</span><span class="t-sell">V:9.60</span></span>
-            <span class="ticker-item"><span class="t-pair">GBP/MAD</span><span class="t-buy">A:12.20</span><span class="t-sell">V:12.85</span></span>
-            <span class="ticker-item"><span class="t-pair">CAD/MAD</span><span class="t-buy">A:6.70</span><span class="t-sell">V:7.00</span></span>
-            <span class="ticker-item"><span class="t-pair">CHF/MAD</span><span class="t-buy">A:11.30</span><span class="t-sell">V:12.00</span></span>
-            <span class="ticker-item"><span class="t-pair">SAR/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">AED/MAD</span><span class="t-buy">A:2.40</span><span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">KWD/MAD</span><span class="t-buy">A:26.00</span><span class="t-sell">V:31.60</span></span>
-        </div></div>
+        <div class="ticker-scroll"><div class="ticker-track" id="tickerTrack"><!-- rempli par app.js (API) --></div></div>
     </div>
 </div>
 
@@ -307,17 +285,7 @@
                         <label class="field-label" for="devise">Devise <span>*</span></label>
                         <select class="form-select" name="devise" id="devise" required>
                             <option value="">— Choisir une devise —</option>
-                            <option value="1">🇪🇺  Euro (EUR)</option>
-                            <option value="2">🇺🇸  Dollar américain (USD)</option>
-                            <option value="3">🇨🇦  Dollar canadien (CAD)</option>
-                            <option value="4">🇬🇧  Livre sterling (GBP)</option>
-                            <option value="6">🇨🇭  Franc suisse (CHF)</option>
-                            <option value="7">🇸🇦  Riyal saoudien (SAR)</option>
-                            <option value="8">🇦🇪  Dirham des Émirats (AED)</option>
-                            <option value="9">🇧🇭  Dinar Bahreïni (BHD)</option>
-                            <option value="10">🇰🇼  Dinar koweïtien (KWD)</option>
-                            <option value="11">🇶🇦  Riyal qatari (QAR)</option>
-                            <option value="12">🇴🇲  Rial omani (OMR)</option>
+                            <!-- options remplies par app.js (API) -->
                         </select>
                     </div>
 
@@ -365,14 +333,7 @@
                     <h3>💱 Cours du jour</h3>
                     <span>MAD indicatifs</span>
                 </div>
-                <div class="mini-rate-row" data-id="1"><div class="mrr-pair"><span class="mrr-flag">🇪🇺</span><span class="mrr-code">EUR</span></div><span class="mrr-buy">10.58</span><span class="mrr-sell">10.85</span></div>
-                <div class="mini-rate-row" data-id="2"><div class="mrr-pair"><span class="mrr-flag">🇺🇸</span><span class="mrr-code">USD</span></div><span class="mrr-buy">9.20</span><span class="mrr-sell">9.60</span></div>
-                <div class="mini-rate-row" data-id="4"><div class="mrr-pair"><span class="mrr-flag">🇬🇧</span><span class="mrr-code">GBP</span></div><span class="mrr-buy">12.20</span><span class="mrr-sell">12.85</span></div>
-                <div class="mini-rate-row" data-id="3"><div class="mrr-pair"><span class="mrr-flag">🇨🇦</span><span class="mrr-code">CAD</span></div><span class="mrr-buy">6.70</span><span class="mrr-sell">7.00</span></div>
-                <div class="mini-rate-row" data-id="6"><div class="mrr-pair"><span class="mrr-flag">🇨🇭</span><span class="mrr-code">CHF</span></div><span class="mrr-buy">11.30</span><span class="mrr-sell">12.00</span></div>
-                <div class="mini-rate-row" data-id="7"><div class="mrr-pair"><span class="mrr-flag">🇸🇦</span><span class="mrr-code">SAR</span></div><span class="mrr-buy">2.40</span><span class="mrr-sell">2.65</span></div>
-                <div class="mini-rate-row" data-id="8"><div class="mrr-pair"><span class="mrr-flag">🇦🇪</span><span class="mrr-code">AED</span></div><span class="mrr-buy">2.40</span><span class="mrr-sell">2.65</span></div>
-                <div class="mini-rate-row" data-id="10"><div class="mrr-pair"><span class="mrr-flag">🇰🇼</span><span class="mrr-code">KWD</span></div><span class="mrr-buy">26.00</span><span class="mrr-sell">31.60</span></div>
+                <div id="miniRatesList"><!-- rempli par app.js (API) --></div>
                 <div class="mini-rates-legend">
                     <span class="l-buy">■ Achat (vous vendez)</span>
                     <span class="l-sell">■ Vente (vous achetez)</span>
@@ -397,8 +358,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo-block">
-                    <div class="footer-logo-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 2L5 8v14l10 6 10-6V8L15 2z" fill="#0b1f3a"/><text x="15" y="20" text-anchor="middle" font-family="serif" font-size="12" font-weight="900" fill="#c9a84c">$</text></svg></div>
-                    <div><div class="footer-logo-name">SARFBAIDA</div><div class="footer-logo-sub">Bureau de Change · Casablanca</div></div>
+                    <a href="index.html"><img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="footer-logo-img"></a>
                 </div>
                 <p>Agence spécialisée dans les services de change de devises. Meilleur prix garanti.</p>
                 <div class="footer-social">
@@ -419,29 +379,13 @@
 
 <div class="whatsapp-float"><a href="https://wa.me/212697044281" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 0C7.164 0 0 7.164 0 16c0 2.82.737 5.492 2.033 7.793L.667 31.333l7.792-2.033A15.93 15.93 0 0016 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333a13.27 13.27 0 01-6.745-1.837l-.483-.287-5.008 1.307 1.337-4.88-.316-.5A13.235 13.235 0 012.667 16c0-7.364 5.969-13.333 13.333-13.333S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.317-9.963c-.393-.197-2.313-1.141-2.671-1.27-.358-.128-.619-.197-.879.197-.261.393-1.014 1.27-1.243 1.532-.229.261-.458.294-.851.098-.393-.197-1.66-.612-3.162-1.949-1.169-1.041-1.956-2.327-2.185-2.72-.229-.393-.025-.605.172-.798.177-.177.393-.458.589-.688.196-.229.261-.393.393-.655.131-.262.065-.491-.033-.688-.098-.196-.879-2.117-1.203-2.899-.317-.76-.639-.657-.879-.67l-.752-.015a1.445 1.445 0 00-1.042.491c-.358.393-1.365 1.333-1.365 3.251s1.396 3.77 1.589 4.028c.196.262 2.74 4.181 6.638 5.861.927.4 1.651.64 2.214.818.93.295 1.776.253 2.446.154.746-.112 2.313-.945 2.639-1.859.326-.913.326-1.696.229-1.859-.098-.163-.358-.262-.751-.459z"/></svg></a></div>
 
+<script src="static/assets/app.js"></script>
 <script>
 window.addEventListener('load',function(){setTimeout(function(){document.getElementById('page-loader').classList.add('loaded');},800);});
 document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navbarNav').classList.toggle('open');});
 document.getElementById('copyright-year').textContent=new Date().getFullYear();
 
-/* ============================================================
-   RATES — exact data from app.js
-   { buy: achat (vous vendez), sell: vente (vous achetez) }
-============================================================ */
-var tauxCalc = {
-    1:  { buy: 10.58, sell: 10.85, code: 'EUR', name: 'Euro' },
-    2:  { buy: 9.20,  sell: 9.60,  code: 'USD', name: 'Dollar américain' },
-    3:  { buy: 6.70,  sell: 7.00,  code: 'CAD', name: 'Dollar canadien' },
-    4:  { buy: 12.20, sell: 12.85, code: 'GBP', name: 'Livre sterling' },
-    6:  { buy: 11.30, sell: 12.00, code: 'CHF', name: 'Franc suisse' },
-    7:  { buy: 2.40,  sell: 2.65,  code: 'SAR', name: 'Riyal saoudien' },
-    8:  { buy: 2.40,  sell: 2.65,  code: 'AED', name: 'Dirham EAU' },
-    9:  { buy: 21.00, sell: 25.65, code: 'BHD', name: 'Dinar Bahreïni' },
-    10: { buy: 26.00, sell: 31.60, code: 'KWD', name: 'Dinar koweïtien' },
-    11: { buy: 2.35,  sell: 2.65,  code: 'QAR', name: 'Riyal qatari' },
-    12: { buy: 21.00, sell: 25.18, code: 'OMR', name: 'Rial omani' }
-};
-
+/* Calculateur : utilise les taux chargés par app.js (API) */
 var deviseEl   = document.getElementById('devise');
 var quantiteEl = document.getElementById('quantite');
 var prixEl     = document.getElementById('prix_devise');
@@ -454,56 +398,70 @@ function clearError(){ errorEl.textContent=''; errorEl.classList.remove('show');
 
 function formatMAD(n){ return n.toLocaleString('fr-MA',{minimumFractionDigits:2,maximumFractionDigits:2})+' MAD'; }
 
-function highlightMiniRow(id){
+function highlightMiniRow(code){
     document.querySelectorAll('.mini-rate-row').forEach(function(r){ r.classList.remove('active-row'); });
-    var row=document.querySelector('.mini-rate-row[data-id="'+id+'"]');
+    var row = document.querySelector('.mini-rate-row[data-code="'+code+'"]');
     if(row) row.classList.add('active-row');
+}
+
+function getRateByCode(code){
+    var rates = window.sarfbaidaRates;
+    if(!rates||!Array.isArray(rates)) return null;
+    for(var i=0;i<rates.length;i++) if(rates[i].code===code) return rates[i];
+    return null;
 }
 
 function calculate(){
     clearError();
-    var deviseId=parseInt(deviseEl.value,10);
-    var quantite=parseFloat(quantiteEl.value);
-    var type=document.querySelector('input[name="type"]:checked').value;
-    if(!deviseId){ showError('⚠️ Veuillez sélectionner une devise.'); return; }
+    var code = deviseEl.value;
+    var quantite = parseFloat(quantiteEl.value);
+    var type = document.querySelector('input[name="type"]:checked').value;
+    if(!code){ showError('⚠️ Veuillez sélectionner une devise.'); return; }
     if(isNaN(quantite)||quantite<=0){ showError('⚠️ Veuillez entrer un montant valide.'); return; }
-    var taux=tauxCalc[deviseId];
-    if(!taux){ showError('⚠️ Devise non reconnue.'); return; }
+    var row = getRateByCode(code);
+    if(!row){ showError('⚠️ Devise non reconnue.'); return; }
 
-    /* achat = buy (vous vendez la devise), vente = sell (vous achetez la devise) */
-    var prix=(type==='achat') ? taux.buy : taux.sell;
-    var total=quantite*prix;
+    var buy = parseFloat(row.achat);
+    var sell = parseFloat(row.vente);
+    var prix = (type==='achat') ? buy : sell;
+    var total = quantite*prix;
 
     prixEl.style.opacity='0'; amountEl.style.opacity='0';
     setTimeout(function(){
-        prixEl.textContent=prix.toFixed(2)+' MAD';
-        amountEl.textContent=formatMAD(total);
+        prixEl.textContent = prix.toFixed(2)+' MAD';
+        amountEl.textContent = formatMAD(total);
         prixEl.style.transition='opacity 0.3s ease'; amountEl.style.transition='opacity 0.3s ease';
         prixEl.style.opacity='1'; amountEl.style.opacity='1';
     },150);
 
-    /* Spread info */
-    var spread=(taux.sell-taux.buy).toFixed(2);
-    spreadEl.innerHTML='<strong>'+taux.code+'</strong> — Achat: '+taux.buy+' | Vente: '+taux.sell+' | Spread: '+spread+' MAD';
+    var spread = (sell-buy).toFixed(2);
+    spreadEl.innerHTML = '<strong>'+row.code+'</strong> — Achat: '+row.achat+' | Vente: '+row.vente+' | Spread: '+spread+' MAD';
     spreadEl.classList.add('show');
-
-    highlightMiniRow(deviseId);
+    highlightMiniRow(code);
 }
 
-document.getElementById('calc').addEventListener('submit',function(e){ e.preventDefault(); calculate(); });
-deviseEl.addEventListener('change',function(){ if(quantiteEl.value) calculate(); });
-quantiteEl.addEventListener('input',function(){ if(this.value&&deviseEl.value) calculate(); });
-document.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change',function(){ if(quantiteEl.value&&deviseEl.value) calculate(); }); });
+function initCalculator(){
+    document.getElementById('calc').addEventListener('submit',function(e){ e.preventDefault(); calculate(); });
+    deviseEl.addEventListener('change',function(){ if(quantiteEl.value) calculate(); });
+    quantiteEl.addEventListener('input',function(){ if(this.value&&deviseEl.value) calculate(); });
+    document.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change',function(){ if(quantiteEl.value&&deviseEl.value) calculate(); }); });
+}
 
-/* Click on mini rate row → select that devise */
-document.querySelectorAll('.mini-rate-row').forEach(function(row){
-    row.addEventListener('click',function(){
-        var id=this.getAttribute('data-id');
-        deviseEl.value=id;
-        highlightMiniRow(id);
-        if(quantiteEl.value) calculate();
-        else quantiteEl.focus();
+window.sarfbaidaBindMiniRates = function(){
+    document.querySelectorAll('.mini-rate-row').forEach(function(row){
+        row.addEventListener('click',function(){
+            var code = this.getAttribute('data-code');
+            if(deviseEl) deviseEl.value = code;
+            highlightMiniRow(code);
+            if(quantiteEl.value) calculate();
+            else if(quantiteEl) quantiteEl.focus();
+        });
     });
+};
+
+window.addEventListener('sarfbaidaRatesReady',function(){
+    initCalculator();
+    if(document.querySelector('.mini-rate-row')) window.sarfbaidaBindMiniRates();
 });
 </script>
 </body>

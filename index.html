@@ -52,6 +52,7 @@
         .site-header { position:sticky; top:0; z-index:1000; background:var(--navy); border-bottom:1px solid rgba(201,168,76,0.2); box-shadow:0 4px 30px rgba(11,31,58,0.35); }
         .header-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:76px; display:flex; align-items:center; gap:24px; }
         .navbar-brand { flex-shrink:0; display:flex; align-items:center; text-decoration:none; }
+        .navbar-logo-img { height:62px; width:auto; max-width:280px; object-fit:contain; display:block; }
         .logo-wrap { display:flex; align-items:center; gap:12px; }
         .logo-icon { width:46px; height:46px; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(201,168,76,0.35); flex-shrink:0; }
         .logo-icon svg { width:26px; height:26px; }
@@ -90,51 +91,95 @@
         .hero {
             background: linear-gradient(155deg, var(--navy) 0%, var(--navy-mid) 55%, #1a3a6e 100%);
             position:relative; overflow:hidden;
-            padding: 80px 0 100px;
+            padding: 52px 0 60px;
         }
         .hero::before {
             content:''; position:absolute; inset:0;
-            background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 65%);
+            background: radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.07) 0%, transparent 60%);
             pointer-events:none;
         }
-        .hero::after {
-            content:''; position:absolute; bottom:-2px; left:0; right:0; height:60px;
-            background: var(--cream);
-            clip-path: ellipse(60% 100% at 50% 100%);
-        }
-        .hero-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:1fr 440px; gap:64px; align-items:center; }
-        @media(max-width:960px) { .hero-inner { grid-template-columns:1fr; gap:48px; } }
+        .hero-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-        .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); border-radius:50px; padding:6px 16px; font-size:0.75rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; animation:fadeUp 0.6s ease both; }
-        .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,4vw,3.4rem); font-weight:900; color:#fff; line-height:1.15; margin-bottom:20px; animation:fadeUp 0.6s 0.1s ease both; }
+        /* top row: branding + btns */
+        .hero-top { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:40px; animation:fadeUp 0.6s ease both; }
+        .hero-top-left { display:flex; flex-direction:column; gap:10px; }
+        .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); border-radius:50px; padding:5px 14px; font-size:0.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); align-self:flex-start; }
+        .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.2vw,2.7rem); font-weight:900; color:#fff; line-height:1.15; }
         .hero h1 em { color:var(--gold); font-style:normal; }
-        .hero p { font-size:1.05rem; color:rgba(255,255,255,0.65); line-height:1.75; max-width:480px; margin-bottom:32px; animation:fadeUp 0.6s 0.2s ease both; }
-        .hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fadeUp 0.6s 0.3s ease both; }
-        .btn-gold { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; background:linear-gradient(135deg,var(--gold) 0%,#b8903a 100%); color:var(--navy); border-radius:var(--radius-sm); font-weight:700; font-size:0.95rem; text-decoration:none; box-shadow:0 6px 20px rgba(201,168,76,0.4); transition:all 0.25s ease; }
+        .hero-sub { font-size:0.9rem; color:rgba(255,255,255,0.5); line-height:1.6; max-width:460px; }
+        .hero-btns { display:flex; gap:12px; flex-wrap:wrap; align-self:flex-start; padding-top:6px; }
+        .btn-gold { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:linear-gradient(135deg,var(--gold) 0%,#b8903a 100%); color:var(--navy); border-radius:var(--radius-sm); font-weight:700; font-size:0.9rem; text-decoration:none; box-shadow:0 6px 20px rgba(201,168,76,0.4); transition:all 0.25s ease; white-space:nowrap; }
         .btn-gold:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(201,168,76,0.55); }
-        .btn-outline { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.3); border-radius:var(--radius-sm); font-weight:600; font-size:0.95rem; text-decoration:none; transition:all 0.25s ease; }
-        .btn-outline:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.5); }
+        .btn-outline { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:rgba(255,255,255,0.07); color:#fff; border:1.5px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm); font-weight:600; font-size:0.9rem; text-decoration:none; transition:all 0.25s ease; white-space:nowrap; }
+        .btn-outline:hover { background:rgba(255,255,255,0.14); }
 
-        .hero-stats { display:flex; gap:32px; margin-top:40px; padding-top:32px; border-top:1px solid rgba(255,255,255,0.1); animation:fadeUp 0.6s 0.4s ease both; }
-        .hero-stat .s-num { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; color:var(--gold); line-height:1; }
-        .hero-stat .s-label { font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:4px; }
+        /* hide old hero elements */
+        .hero p:not(.hero-sub) { display:none; }
+        .hero-stats { display:none !important; }
+        .hero-calc-card, .hcc-title, .hcc-row, .hcc-pair, .hcc-rates, .hcc-rate, .hcc-footer { display:none !important; }
 
-        /* Mini calc card in hero */
-        .hero-calc-card { background:rgba(255,255,255,0.06); backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,0.2); border-radius:var(--radius-lg); padding:28px; animation:scaleIn 0.7s 0.2s ease both; }
-        .hcc-title { font-size:0.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
-        .hcc-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.07); font-size:0.88rem; }
-        .hcc-row:last-child { border-bottom:none; }
-        .hcc-pair { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.8); font-weight:500; }
-        .hcc-flag { font-size:1.2rem; }
-        .hcc-rates { display:flex; gap:16px; }
-        .hcc-rate { text-align:right; }
-        .hcc-rate .r-label { font-size:0.62rem; color:rgba(255,255,255,0.4); display:block; }
-        .hcc-rate .r-val { font-size:0.88rem; font-weight:700; color:#fff; }
-        .hcc-rate.buy .r-val  { color:#93c5fd; }
-        .hcc-rate.sell .r-val { color:#86efac; }
-        .hcc-footer { margin-top:16px; }
-        .hcc-footer a { display:block; text-align:center; padding:12px; background:linear-gradient(135deg,var(--gold) 0%,#b8903a 100%); color:var(--navy); border-radius:var(--radius-sm); font-weight:700; font-size:0.9rem; text-decoration:none; transition:all 0.22s ease; }
-        .hcc-footer a:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(201,168,76,0.45); }
+        /* ── RATES BOARD ── */
+        .rates-board { animation:fadeUp 0.7s 0.15s ease both; }
+        .rates-board-header {
+            display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+            padding: 13px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-bottom: none;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            backdrop-filter: blur(8px);
+        }
+        .rbh-left { display:flex; align-items:center; gap:12px; }
+        .rbh-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:#fff; }
+        .live-dot { display:flex; align-items:center; gap:6px; font-size:0.72rem; color:rgba(255,255,255,0.4); }
+        .live-dot::before { content:''; width:7px; height:7px; background:#4ade80; border-radius:50%; animation:blink 1.5s ease-in-out infinite; flex-shrink:0; }
+        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+        .rbh-legend { display:flex; gap:20px; }
+        .rbh-leg { display:flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.4); }
+        .dot-buy  { width:7px; height:7px; border-radius:50%; background:#93c5fd; flex-shrink:0; }
+        .dot-sell { width:7px; height:7px; border-radius:50%; background:#86efac; flex-shrink:0; }
+
+        /* currency cards grid */
+        .rates-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,168,76,0.18);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+        @media(max-width:900px)  { .rates-cards-grid { grid-template-columns: repeat(3,1fr); } }
+        @media(max-width:600px)  { .rates-cards-grid { grid-template-columns: repeat(2,1fr); } }
+
+        .rate-card {
+            padding: 15px 16px;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-direction:column; gap:9px;
+            transition: background 0.2s ease;
+        }
+        .rate-card:hover { background: rgba(201,168,76,0.08); }
+        .rc-top { display:flex; align-items:center; gap:8px; }
+        .rc-flag { font-size:1.45rem; line-height:1; flex-shrink:0; }
+        .rc-code { font-size:0.9rem; font-weight:800; color:#fff; }
+        .rc-name { font-size:0.62rem; color:rgba(255,255,255,0.35); margin-top:1px; }
+        .rc-rates { display:flex; gap:6px; }
+        .rc-rate { flex:1; background:rgba(0,0,0,0.18); border-radius:6px; padding:5px 7px; display:flex; flex-direction:column; }
+        .rc-rate .lbl { font-size:0.56rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
+        .rc-rate .val { font-size:0.9rem; font-weight:700; line-height:1; }
+        .rc-rate.buy  .lbl { color:#93c5fd; }
+        .rc-rate.buy  .val { color:#bfdbfe; }
+        .rc-rate.sell .lbl { color:#86efac; }
+        .rc-rate.sell .val { color:#bbf7d0; }
+
+        .rates-board-footer {
+            display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
+            padding: 10px 4px 0;
+        }
+        .rbf-note { font-size:0.7rem; color:rgba(255,255,255,0.3); }
+        .rbf-link { font-size:0.78rem; color:var(--gold); text-decoration:none; font-weight:600; }
+        .rbf-link:hover { color:var(--gold-light); text-decoration:underline; }
 
         /* ── SECTION WRAPPER ── */
         .section { padding:72px 0; }
@@ -194,11 +239,8 @@
         .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.08); }
         @media(max-width:960px) { .footer-grid { grid-template-columns:1fr 1fr; gap:32px; } }
         @media(max-width:576px) { .footer-grid { grid-template-columns:1fr; gap:28px; } }
-        .footer-brand .footer-logo-block { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
-        .footer-logo-icon { width:52px; height:52px; flex-shrink:0; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 100%); border-radius:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(201,168,76,0.35); }
-        .footer-logo-icon svg { width:30px; height:30px; }
-        .footer-logo-name { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:var(--gold); letter-spacing:2px; line-height:1; }
-        .footer-logo-sub { font-size:0.65rem; font-weight:600; color:rgba(201,168,76,0.5); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+        .footer-brand .footer-logo-block { display:flex; align-items:center; margin-bottom:20px; }
+        .footer-logo-img { height:48px; width:auto; max-width:220px; object-fit:contain; display:block; }
         .footer-brand p { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.75; max-width:280px; }
         .footer-social { display:flex; gap:10px; margin-top:20px; }
         .social-btn { width:38px; height:38px; background:rgba(255,255,255,0.07); border-radius:10px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.6); text-decoration:none; transition:all 0.22s ease; }
@@ -239,10 +281,7 @@
 <header class="site-header">
     <div class="header-inner">
         <a class="navbar-brand" href="index.html">
-            <div class="logo-wrap">
-                <div class="logo-icon"><svg viewBox="0 0 26 26" fill="none"><path d="M13 2L4 7v12l9 5 9-5V7L13 2z" fill="#0b1f3a"/><text x="13" y="17" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#c9a84c">$</text></svg></div>
-                <div class="logo-text-block"><span class="logo-name">SARFBAIDA</span><span class="logo-tagline">Bureau de Change</span></div>
-            </div>
+            <img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="navbar-logo-img">
         </a>
         <button class="navbar-toggler" id="menuToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <ul class="navbar-nav" id="navbarNav">
@@ -259,71 +298,46 @@
 <div class="rates-ticker">
     <div class="ticker-inner">
         <span class="ticker-label">📈 Cours du jour</span>
-        <div class="ticker-scroll"><div class="ticker-track" id="tickerTrack">
-            <span class="ticker-item"><span class="t-pair">EUR/MAD</span> <span class="t-buy">A:10.58</span> <span class="t-sell">V:10.85</span></span>
-            <span class="ticker-item"><span class="t-pair">USD/MAD</span> <span class="t-buy">A:9.20</span> <span class="t-sell">V:9.60</span></span>
-            <span class="ticker-item"><span class="t-pair">GBP/MAD</span> <span class="t-buy">A:12.20</span> <span class="t-sell">V:12.85</span></span>
-            <span class="ticker-item"><span class="t-pair">CAD/MAD</span> <span class="t-buy">A:6.70</span> <span class="t-sell">V:7.00</span></span>
-            <span class="ticker-item"><span class="t-pair">CHF/MAD</span> <span class="t-buy">A:11.30</span> <span class="t-sell">V:12.00</span></span>
-            <span class="ticker-item"><span class="t-pair">SAR/MAD</span> <span class="t-buy">A:2.40</span> <span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">AED/MAD</span> <span class="t-buy">A:2.40</span> <span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">KWD/MAD</span> <span class="t-buy">A:26.00</span> <span class="t-sell">V:31.60</span></span>
-            <!-- duplicate -->
-            <span class="ticker-item"><span class="t-pair">EUR/MAD</span> <span class="t-buy">A:10.58</span> <span class="t-sell">V:10.85</span></span>
-            <span class="ticker-item"><span class="t-pair">USD/MAD</span> <span class="t-buy">A:9.20</span> <span class="t-sell">V:9.60</span></span>
-            <span class="ticker-item"><span class="t-pair">GBP/MAD</span> <span class="t-buy">A:12.20</span> <span class="t-sell">V:12.85</span></span>
-            <span class="ticker-item"><span class="t-pair">CAD/MAD</span> <span class="t-buy">A:6.70</span> <span class="t-sell">V:7.00</span></span>
-            <span class="ticker-item"><span class="t-pair">CHF/MAD</span> <span class="t-buy">A:11.30</span> <span class="t-sell">V:12.00</span></span>
-            <span class="ticker-item"><span class="t-pair">SAR/MAD</span> <span class="t-buy">A:2.40</span> <span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">AED/MAD</span> <span class="t-buy">A:2.40</span> <span class="t-sell">V:2.65</span></span>
-            <span class="ticker-item"><span class="t-pair">KWD/MAD</span> <span class="t-buy">A:26.00</span> <span class="t-sell">V:31.60</span></span>
-        </div></div>
+        <div class="ticker-scroll"><div class="ticker-track" id="tickerTrack"><!-- rempli par app.js (API) --></div></div>
     </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
     <div class="hero-inner">
-        <div class="hero-text">
-            <div class="hero-badge">✦ Bureau de Change Agréé · Casablanca</div>
-            <h1>Le change de devises à <em>votre portée</em></h1>
-            <p>Meilleur prix garanti sur toutes les devises. Service rapide, transparent et professionnel.</p>
+
+        <!-- Top: branding left, CTAs right -->
+        <div class="hero-top">
+            <div class="hero-top-left">
+                <div class="hero-badge">✦ Bureau de Change Agréé · Casablanca</div>
+                <h1>Le change de devises à <em>votre portée</em></h1>
+                <p class="hero-sub">Meilleur prix garanti. Service rapide et transparent.</p>
+            </div>
             <div class="hero-btns">
                 <a href="calculateur-index.html" class="btn-gold">🧮 Simuler un change</a>
                 <a href="agence-index.html" class="btn-outline">📍 Nos agences</a>
             </div>
-            <div class="hero-stats">
-                <div class="hero-stat"><div class="s-num">11+</div><div class="s-label">Devises disponibles</div></div>
-                <div class="hero-stat"><div class="s-num">100%</div><div class="s-label">Agréé Office des Changes</div></div>
-                <div class="hero-stat"><div class="s-num">6j/7</div><div class="s-label">Ouvert</div></div>
+        </div>
+
+        <!-- Rates board — awal haja tban -->
+        <div class="rates-board">
+            <div class="rates-board-header">
+                <div class="rbh-left">
+                    <span class="rbh-title">💱 Tableau de change — Taux du jour</span>
+                    <span class="live-dot">En direct</span>
+                </div>
+                <div class="rbh-legend">
+                    <span class="rbh-leg"><span class="dot-buy"></span> Achat</span>
+                    <span class="rbh-leg"><span class="dot-sell"></span> Vente</span>
+                </div>
+            </div>
+            <div class="rates-cards-grid" id="ratesCardsGrid"><!-- rempli par app.js (API) --></div>
+            <div class="rates-board-footer">
+                <span class="rbf-note">⚠️ Taux indicatifs — mis à jour quotidiennement</span>
+                <a href="calculateur-index.html" class="rbf-link">🧮 Simuler mon change →</a>
             </div>
         </div>
 
-        <!-- Mini rates preview -->
-        <div class="hero-calc-card">
-            <div class="hcc-title">💱 Cours indicatifs du jour</div>
-            <div class="hcc-row">
-                <div class="hcc-pair"><span class="hcc-flag">🇪🇺</span><div><div style="font-weight:700;color:#fff">Euro</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">EUR / MAD</div></div></div>
-                <div class="hcc-rates"><div class="hcc-rate buy"><span class="r-label">Achat</span><span class="r-val">10.58</span></div><div class="hcc-rate sell"><span class="r-label">Vente</span><span class="r-val">10.85</span></div></div>
-            </div>
-            <div class="hcc-row">
-                <div class="hcc-pair"><span class="hcc-flag">🇺🇸</span><div><div style="font-weight:700;color:#fff">Dollar US</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">USD / MAD</div></div></div>
-                <div class="hcc-rates"><div class="hcc-rate buy"><span class="r-label">Achat</span><span class="r-val">9.20</span></div><div class="hcc-rate sell"><span class="r-label">Vente</span><span class="r-val">9.60</span></div></div>
-            </div>
-            <div class="hcc-row">
-                <div class="hcc-pair"><span class="hcc-flag">🇬🇧</span><div><div style="font-weight:700;color:#fff">Livre sterling</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">GBP / MAD</div></div></div>
-                <div class="hcc-rates"><div class="hcc-rate buy"><span class="r-label">Achat</span><span class="r-val">12.20</span></div><div class="hcc-rate sell"><span class="r-label">Vente</span><span class="r-val">12.85</span></div></div>
-            </div>
-            <div class="hcc-row">
-                <div class="hcc-pair"><span class="hcc-flag">🇸🇦</span><div><div style="font-weight:700;color:#fff">Riyal saoudien</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">SAR / MAD</div></div></div>
-                <div class="hcc-rates"><div class="hcc-rate buy"><span class="r-label">Achat</span><span class="r-val">2.40</span></div><div class="hcc-rate sell"><span class="r-label">Vente</span><span class="r-val">2.65</span></div></div>
-            </div>
-            <div class="hcc-row">
-                <div class="hcc-pair"><span class="hcc-flag">🇰🇼</span><div><div style="font-weight:700;color:#fff">Dinar koweïtien</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">KWD / MAD</div></div></div>
-                <div class="hcc-rates"><div class="hcc-rate buy"><span class="r-label">Achat</span><span class="r-val">26.00</span></div><div class="hcc-rate sell"><span class="r-label">Vente</span><span class="r-val">31.60</span></div></div>
-            </div>
-            <div class="hcc-footer"><a href="calculateur-index.html">🧮 Simuler mon change →</a></div>
-        </div>
     </div>
 </section>
 
@@ -345,19 +359,7 @@
                         <th>Vente (MAD)</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇪🇺</span><div class="currency-info"><div class="c-name">Euro</div><div class="c-code">EUR</div></div></div></td><td><span class="rate-badge badge-buy">EUR</span></td><td><span class="rate-buy">10.58</span></td><td><span class="rate-sell">10.85</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇺🇸</span><div class="currency-info"><div class="c-name">Dollar américain</div><div class="c-code">USD</div></div></div></td><td><span class="rate-badge badge-buy">USD</span></td><td><span class="rate-buy">9.20</span></td><td><span class="rate-sell">9.60</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇨🇦</span><div class="currency-info"><div class="c-name">Dollar canadien</div><div class="c-code">CAD</div></div></div></td><td><span class="rate-badge badge-buy">CAD</span></td><td><span class="rate-buy">6.70</span></td><td><span class="rate-sell">7.00</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇬🇧</span><div class="currency-info"><div class="c-name">Livre sterling</div><div class="c-code">GBP</div></div></div></td><td><span class="rate-badge badge-buy">GBP</span></td><td><span class="rate-buy">12.20</span></td><td><span class="rate-sell">12.85</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇨🇭</span><div class="currency-info"><div class="c-name">Franc suisse</div><div class="c-code">CHF</div></div></div></td><td><span class="rate-badge badge-buy">CHF</span></td><td><span class="rate-buy">11.30</span></td><td><span class="rate-sell">12.00</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇸🇦</span><div class="currency-info"><div class="c-name">Riyal saoudien</div><div class="c-code">SAR</div></div></div></td><td><span class="rate-badge badge-buy">SAR</span></td><td><span class="rate-buy">2.40</span></td><td><span class="rate-sell">2.65</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇦🇪</span><div class="currency-info"><div class="c-name">Dirham des Émirats</div><div class="c-code">AED</div></div></div></td><td><span class="rate-badge badge-buy">AED</span></td><td><span class="rate-buy">2.40</span></td><td><span class="rate-sell">2.65</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇧🇭</span><div class="currency-info"><div class="c-name">Dinar Bahreïni</div><div class="c-code">BHD</div></div></div></td><td><span class="rate-badge badge-buy">BHD</span></td><td><span class="rate-buy">21.00</span></td><td><span class="rate-sell">25.65</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇰🇼</span><div class="currency-info"><div class="c-name">Dinar koweïtien</div><div class="c-code">KWD</div></div></div></td><td><span class="rate-badge badge-buy">KWD</span></td><td><span class="rate-buy">26.00</span></td><td><span class="rate-sell">31.60</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇶🇦</span><div class="currency-info"><div class="c-name">Riyal qatari</div><div class="c-code">QAR</div></div></div></td><td><span class="rate-badge badge-buy">QAR</span></td><td><span class="rate-buy">2.35</span></td><td><span class="rate-sell">2.60</span></td></tr>
-                    <tr><td><div class="currency-cell"><span class="currency-flag">🇴🇲</span><div class="currency-info"><div class="c-name">Rial omani</div><div class="c-code">OMR</div></div></div></td><td><span class="rate-badge badge-buy">OMR</span></td><td><span class="rate-buy">21.00</span></td><td><span class="rate-sell">25.18</span></td></tr>
-                </tbody>
+                <tbody id="ratesTableBody"><!-- rempli par app.js (API) --></tbody>
             </table>
         </div>
         <p class="rates-note">Taux indicatifs — les cours réels peuvent légèrement varier. <a href="calculateur-index.html" style="color:var(--navy-light);font-weight:600;margin-left:4px">Simuler maintenant →</a></p>
@@ -403,8 +405,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo-block">
-                    <div class="footer-logo-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 2L5 8v14l10 6 10-6V8L15 2z" fill="#0b1f3a"/><text x="15" y="20" text-anchor="middle" font-family="serif" font-size="12" font-weight="900" fill="#c9a84c">$</text></svg></div>
-                    <div><div class="footer-logo-name">SARFBAIDA</div><div class="footer-logo-sub">Bureau de Change · Casablanca</div></div>
+                    <a href="index.html"><img src="static/assets/images/logo-sarfbaidaa.png" alt="SARFBAIDAA Bureau de Change Casablanca" class="footer-logo-img"></a>
                 </div>
                 <p>Agence spécialisée dans les services de change de devises à Casablanca. Meilleur prix garanti.</p>
                 <div class="footer-social">
@@ -425,6 +426,7 @@
 
 <div class="whatsapp-float"><a href="https://wa.me/212697044281" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 0C7.164 0 0 7.164 0 16c0 2.82.737 5.492 2.033 7.793L.667 31.333l7.792-2.033A15.93 15.93 0 0016 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333a13.27 13.27 0 01-6.745-1.837l-.483-.287-5.008 1.307 1.337-4.88-.316-.5A13.235 13.235 0 012.667 16c0-7.364 5.969-13.333 13.333-13.333S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.317-9.963c-.393-.197-2.313-1.141-2.671-1.27-.358-.128-.619-.197-.879.197-.261.393-1.014 1.27-1.243 1.532-.229.261-.458.294-.851.098-.393-.197-1.66-.612-3.162-1.949-1.169-1.041-1.956-2.327-2.185-2.72-.229-.393-.025-.605.172-.798.177-.177.393-.458.589-.688.196-.229.261-.393.393-.655.131-.262.065-.491-.033-.688-.098-.196-.879-2.117-1.203-2.899-.317-.76-.639-.657-.879-.67l-.752-.015a1.445 1.445 0 00-1.042.491c-.358.393-1.365 1.333-1.365 3.251s1.396 3.77 1.589 4.028c.196.262 2.74 4.181 6.638 5.861.927.4 1.651.64 2.214.818.93.295 1.776.253 2.446.154.746-.112 2.313-.945 2.639-1.859.326-.913.326-1.696.229-1.859-.098-.163-.358-.262-.751-.459z"/></svg></a></div>
 
+<script src="static/assets/app.js"></script>
 <script>
 window.addEventListener('load',function(){setTimeout(function(){document.getElementById('page-loader').classList.add('loaded');},800);});
 document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navbarNav').classList.toggle('open');});
