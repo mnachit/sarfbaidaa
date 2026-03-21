@@ -531,28 +531,45 @@
     </a>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+/* EmailJS */
+var EMAILJS_SERVICE = 'service_oc8rbzu';
+var EMAILJS_PUBLIC  = 'LBigIvpeuOSvBEPkw';
+
 window.addEventListener('load', function(){ setTimeout(function(){ document.getElementById('page-loader').classList.add('loaded'); }, 800); });
 document.getElementById('menuToggle').addEventListener('click', function(){ document.getElementById('navbarNav').classList.toggle('open'); });
 document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
+(function(){ emailjs.init(EMAILJS_PUBLIC); })();
+
 document.getElementById('contactform').addEventListener('submit', function(e){
     e.preventDefault();
+    var form = this;
     var msg = document.getElementById('form-message');
     var subject = document.getElementById('subject').value.trim();
     var name = document.getElementById('name').value.trim();
     var email = document.getElementById('email').value.trim();
     var message = document.getElementById('message').value.trim();
     if(!subject || !name || !email || !message){
-        msg.className = 'error'; msg.textContent = '⚠️ Veuillez remplir tous les champs obligatoires.'; return;
+        msg.className = 'error'; msg.textContent = '⚠️ Veuillez remplir tous les champs obligatoires.'; msg.style.display = 'block'; return;
     }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        msg.className = 'error'; msg.textContent = '⚠️ Veuillez entrer une adresse email valide.'; return;
+        msg.className = 'error'; msg.textContent = '⚠️ Veuillez entrer une adresse email valide.'; msg.style.display = 'block'; return;
     }
-    msg.className = 'success';
-    msg.textContent = '✅ Votre message a été envoyé avec succès ! Nous vous répondrons très bientôt.';
-    this.reset();
-    setTimeout(function(){ msg.className = ''; msg.textContent = ''; msg.style.display = 'none'; }, 6000);
+    msg.className = ''; msg.textContent = '⏳ Envoi en cours...'; msg.style.display = 'block'; msg.style.background = '#f0f9ff'; msg.style.borderColor = '#93c5fd'; msg.style.color = '#1e4278';
+    var btn = form.querySelector('button[type="submit"]');
+    if(btn){ btn.disabled = true; }
+    emailjs.sendForm(EMAILJS_SERVICE, 'template_vb9c9nj', form).then(function(){
+        msg.className = 'success'; msg.textContent = '✅ Votre message a été envoyé avec succès ! Nous vous répondrons très bientôt.';
+        form.reset();
+        if(btn){ btn.disabled = false; }
+        setTimeout(function(){ msg.className = ''; msg.textContent = ''; msg.style.display = 'none'; }, 6000);
+    }, function(err){
+        msg.className = 'error'; msg.textContent = '❌ Erreur d\'envoi. Veuillez réessayer ou nous contacter par téléphone.';
+        if(btn){ btn.disabled = false; }
+        console.error('EmailJS:', err);
+    });
 });
 </script>
 </body>
