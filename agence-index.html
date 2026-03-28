@@ -264,7 +264,7 @@
         <div class="ib-icon">🕐</div>
         <div>
             <h3>Horaires d'ouverture</h3>
-            <p><strong>Lun – Ven :</strong> 9h00 – 19h00 &nbsp;|&nbsp; <strong>Samedi :</strong> 9h00 – 18h00 &nbsp;|&nbsp; <strong>Ramadan :</strong> 9h30 – 17h00 (Lun–Ven) &nbsp;/&nbsp; 9h30 – 16h00 (Sam)</p>
+            <p><strong>Lun – Ven :</strong> 9h00 – 19h00 &nbsp;|&nbsp; <strong>Samedi :</strong> 9h00 – 18h00 &nbsp;|&nbsp; <strong>Dimanche 11h00 – 19h00 :</strong> Ain Diab &amp; Inara 2 uniquement &nbsp;|&nbsp; <strong>Ramadan :</strong> 9h30 – 17h00 (Lun–Ven) &nbsp;/&nbsp; 9h30 – 16h00 (Sam)</p>
         </div>
     </div>
 
@@ -327,8 +327,8 @@
             </div>
         </div>
 
-        <!-- Agence 3 — placeholder -->
-        <div class="agency-card" style="animation-delay:0.2s">
+        <!-- Agence 3 — Inara 2 (ouvert dimanche 11h–19h) -->
+        <div class="agency-card agency-sunday" style="animation-delay:0.2s">
             <div class="agency-photo">
                 <img src="./static/assets/images/agence3.jpeg" alt="Agence 3"
                      onerror="this.style.display='none';this.parentElement.querySelector('.agency-photo-fallback').style.display='flex'">
@@ -344,7 +344,7 @@
                 <div class="agency-meta">
                     <div class="agency-meta-row"><div class="m-icon">📞</div><a href="tel:+212522219318">+212 5 22 21 93 18</a></div>
                     <div class="agency-meta-row"><div class="m-icon">📱</div><a href="tel:+212630015847">+212 6 30 01 58 47</a></div>
-                    <div class="agency-meta-row"><div class="m-icon">⏰</div><span>Lun–Ven : 9h–19h &nbsp;|&nbsp; Sam : 9h–18h</span></div>
+                    <div class="agency-meta-row"><div class="m-icon">⏰</div><span>Lun–Ven : 9h–19h &nbsp;|&nbsp; Sam : 9h–18h &nbsp;|&nbsp; Dim : 11h–19h</span></div>
                     <div class="agency-meta-row"><div class="m-icon">✅</div><span class="agency-status"><span class="status-dot"></span>Ouvert actuellement</span></div>
                 </div>
                 <div class="agency-actions">
@@ -497,8 +497,8 @@
             </div>
         </div>
 
-        <!-- Agence 9 — placeholder -->
-        <div class="agency-card" style="animation-delay:0.2s">
+        <!-- Agence 9 — Ain Diab (ouvert dimanche 11h–19h) -->
+        <div class="agency-card agency-sunday" style="animation-delay:0.2s">
             <div class="agency-photo">
                 <img src="./static/assets/images/agence9.jpeg" alt="Agence 3"
                      onerror="this.style.display='none';this.parentElement.querySelector('.agency-photo-fallback').style.display='flex'">
@@ -514,7 +514,7 @@
                 <div class="agency-meta">
                     <div class="agency-meta-row"><div class="m-icon">📞</div><a href="tel:+212522798382">+212 5 22 79 83 82</a></div>
                     <div class="agency-meta-row"><div class="m-icon">📱</div><a href="tel:+212779441921">+212 7 79 44 19 21</a></div>
-                    <div class="agency-meta-row"><div class="m-icon">⏰</div><span>Lun–Ven : 9h–19h &nbsp;|&nbsp; Sam : 9h–18h</span></div>
+                    <div class="agency-meta-row"><div class="m-icon">⏰</div><span>Lun–Ven : 9h–19h &nbsp;|&nbsp; Sam : 9h–18h &nbsp;|&nbsp; Dim : 11h–19h</span></div>
                     <div class="agency-meta-row"><div class="m-icon">✅</div><span class="agency-status"><span class="status-dot"></span>Ouvert actuellement</span></div>
                 </div>
                 <div class="agency-actions">
@@ -571,7 +571,7 @@
                 </div>
             </div>
             <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Acceuil</a></li><li><a href="dotation-index.html">Consultez la dotation</a></li><li><a href="index.html">Nos Agences</a></li><li><a href="contact-index.html">Contact</a></li><li><a href="calculateur-index.html">Calculateur</a></li></ul></div>
-            <div class="footer-col"><h5>Horaires</h5><ul><li><a>Lun – Ven : 9h – 19h</a></li><li><a>Samedi : 9h – 18h</a></li><li><a>🌙 Ramadan Lun–Ven : 9h30–17h</a></li><li><a>🌙 Ramadan Sam : 9h30–16h</a></li></ul></div>
+            <div class="footer-col"><h5>Horaires</h5><ul><li><a>Lun – Ven : 9h – 19h</a></li><li><a>Samedi : 9h – 18h</a></li><li><a>Dim 11h – 19h : Ain Diab &amp; Inara 2</a></li><li><a>🌙 Ramadan Lun–Ven : 9h30–17h</a></li><li><a>🌙 Ramadan Sam : 9h30–16h</a></li></ul></div>
             <div class="footer-col"><h5>Contact</h5><address><strong>Sarfbaida</strong></address><div class="footer-phone" style="margin-top:10px"><span>📞</span><a href="tel:+212522768463">+212 5 22 76 84 63</a></div><div class="footer-phone"><span>📲</span><a href="tel:+212697044281">+212 6 97 04 42 81</a></div></div>
         </div>
         <div class="footer-bottom">
@@ -589,18 +589,23 @@ window.addEventListener('load',function(){setTimeout(function(){document.getElem
 document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navbarNav').classList.toggle('open');});
 document.getElementById('copyright-year').textContent=new Date().getFullYear();
 
-// Status: open/closed based on current time
+// Statut ouvert/fermé par agence (Dim 11h–19h : Ain Diab & Inara 2 uniquement)
 (function(){
     var now=new Date();
-    var day=now.getDay(); // 0=Sun,6=Sat
+    var day=now.getDay();
     var h=now.getHours();
-    var isOpen=false;
-    if(day>=1&&day<=5&&h>=9&&h<19) isOpen=true;
-    if(day===6&&h>=9&&h<18) isOpen=true;
-    if(!isOpen){
-        document.querySelectorAll('.status-dot').forEach(function(d){d.style.background='#e74c3c';d.style.animation='none';});
-        document.querySelectorAll('.agency-status').forEach(function(s){s.lastChild.textContent='Fermé actuellement';});
-    }
+    document.querySelectorAll('.agency-card').forEach(function(card){
+        var open=false;
+        if(day>=1&&day<=5&&h>=9&&h<19) open=true;
+        if(day===6&&h>=9&&h<18) open=true;
+        if(card.classList.contains('agency-sunday')&&day===0&&h>=11&&h<19) open=true;
+        if(!open){
+            var dot=card.querySelector('.status-dot');
+            var st=card.querySelector('.agency-status');
+            if(dot){ dot.style.background='#e74c3c'; dot.style.animation='none'; }
+            if(st&&st.lastChild) st.lastChild.textContent='Fermé actuellement';
+        }
+    });
 })();
 </script>
 </body>
