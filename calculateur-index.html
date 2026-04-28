@@ -412,25 +412,33 @@ function getRateByCode(code){
     return null;
 }
 
+function parseRateValue(v){
+    if(v===null||v===undefined) return NaN;
+    return parseFloat(String(v).replace(/\s/g,'').replace(',', '.'));
+}
+
 function calculate(){
     clearError();
     var code = deviseEl.value;
     var quantite = parseFloat(quantiteEl.value);
     var type = document.querySelector('input[name="type"]:checked').value;
     if(!code){ showError('⚠️ Veuillez sélectionner une devise.'); return; }
-    if(isNaN(quantite)||quantite<=0){ showError('⚠️ Veuillez entrer un montant valide.'); return; }
     var row = getRateByCode(code);
     if(!row){ showError('⚠️ Devise non reconnue.'); return; }
 
-    var buy = parseFloat(row.achat);
-    var sell = parseFloat(row.vente);
+    var buy = parseRateValue(row.achat);
+    var sell = parseRateValue(row.vente);
+    if(isNaN(buy)||isNaN(sell)){ showError('⚠️ Taux indisponibles pour cette devise.'); return; }
     var prix = (type==='achat') ? buy : sell;
-    var total = quantite*prix;
 
     prixEl.style.opacity='0'; amountEl.style.opacity='0';
     setTimeout(function(){
         prixEl.textContent = prix.toFixed(2)+' MAD';
-        amountEl.textContent = formatMAD(total);
+        if(isNaN(quantite)||quantite<=0){
+            amountEl.textContent = '—';
+        } else {
+            amountEl.textContent = formatMAD(quantite*prix);
+        }
         prixEl.style.transition='opacity 0.3s ease'; amountEl.style.transition='opacity 0.3s ease';
         prixEl.style.opacity='1'; amountEl.style.opacity='1';
     },150);
@@ -443,9 +451,9 @@ function calculate(){
 
 function initCalculator(){
     document.getElementById('calc').addEventListener('submit',function(e){ e.preventDefault(); calculate(); });
-    deviseEl.addEventListener('change',function(){ if(quantiteEl.value) calculate(); });
-    quantiteEl.addEventListener('input',function(){ if(this.value&&deviseEl.value) calculate(); });
-    document.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change',function(){ if(quantiteEl.value&&deviseEl.value) calculate(); }); });
+    deviseEl.addEventListener('change',calculate);
+    quantiteEl.addEventListener('input',function(){ if(deviseEl.value) calculate(); });
+    document.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change',function(){ if(deviseEl.value) calculate(); }); });
 }
 
 window.sarfbaidaBindMiniRates = function(){
@@ -463,6 +471,7 @@ window.sarfbaidaBindMiniRates = function(){
 window.addEventListener('sarfbaidaRatesReady',function(){
     initCalculator();
     if(document.querySelector('.mini-rate-row')) window.sarfbaidaBindMiniRates();
+    if(deviseEl.value) calculate();
 });
 </script>
 </body>
